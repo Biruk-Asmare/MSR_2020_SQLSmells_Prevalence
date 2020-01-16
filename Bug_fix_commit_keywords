@@ -1,0 +1,18 @@
+#the following key words are used to identify bug fix commits in SZZ alorithm
+
+"fixed ", " bug", "fixes ","fix ",
+" fix", " fixed", " fixes", "crash","solves", " resolves",
+"resolves ", " issue", "issue ", "regression", "fall back", 
+"assertion", "coverity", "reproducible",
+"stack-wanted", "steps-wanted", "testcase", 
+"failur", "fail", "npe ",
+" npe", "except", "broken", "differential testing", 
+"error", "addresssanitizer",
+"hang ", " hang", "permaorange", "random orange", 
+"intermittent", "test fix",
+"steps to reproduce", "crash", "assertion", "failure",
+"leak", "stack trace", "heap overflow",
+ "freez", "str:", "problem ", " problem",
+ " overflow", "overflow ", "avoid ",
+ " avoid",  "workaround ", " workaround", 
+ "break ", " break", " stop", "stop "
