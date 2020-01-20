@@ -1,0 +1,75 @@
+---
+title: "Survivial analysis"
+output: html_notebook
+---
+<h1>Survivial analysis of smells on classes that acess database </h1>
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#install packages
+#install.packages("car", dependencies=TRUE)
+install.packages("survival", dependencies=TRUE)
+install.packages("flexsurv", dependencies=TRUE)
+install.packages("KMsurv", dependencies=TRUE)
+#install.packages("e1071", dependencies=TRUE)
+#install.packages("rms", dependencies=TRUE)
+```
+
+```{r}
+data=read.csv('Dataset_Survivial_analysis.csv')
+library(survival)
+```
+
+```{r}
+head(data)
+```
+
+
+```{r}
+#pdf("Kaplan_Meir_traditional_database.pdf")
+ser<-Surv(data$days, data$status)
+kmsurv <-survfit(Surv(data$days, data$status)~data$DBsmell,conf.type='log-log')   
+#summary(kmsurv)
+#red: traditional smells, blue: database smells
+par(mar=c(4,5,1,1.5))
+plot(kmsurv,xlab="Time (Days)",  ylab="Survival probability", col=c("red","blue"), mark.time = TRUE,lty = c(1,1), cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+par(cex = 1.5)
+legend("bottomright",c("Traditional Code Smell","SQL Code Smell"), col=c("red","blue"),lty = c(1,1))
+survdiff(formula = ser~data$DBsmell)
+#pdf(plot)
+#dev.off()
+```
+
+<h2>Plot each smell type</h2>
+
+```{r}
+data_imp<-data[data$smellType=='IMPLICIT_COLUMNS',]
+data_fu<-data[data$smellType=='FEAR_OF_THE_UNKNOWN',]
+```
+
+
+
+```{r}
+#pdf("Kaplan_Meir_implicit_columns.pdf")
+ser=Surv(data_imp$days, data_imp$status)
+kmsurv <-survfit(ser~1,conf.type='log-log')
+
+par(mar=c(4,5,1,1.5))
+plot(kmsurv,xlab="Time (Days)", mark.time = TRUE, ylab="Survival probability",cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+#pdf(plot)
+#dev.off()
+```
+
+
+```{r}
+#pdf("Kaplan_Meir_fear_of_unknown.pdf")
+ser=Surv(data_fu$days, data_fu$status)
+kmsurv <-survfit(ser~1,conf.type='log-log')
+par(mar=c(4,5,1,1.5))
+plot(kmsurv,xlab="Time (Days)", mark.time = TRUE,  ylab="Survival probability",cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+#pdf(plot)
+#dev.off()
+```
+

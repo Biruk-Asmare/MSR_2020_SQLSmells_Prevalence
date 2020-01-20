@@ -1,0 +1,86 @@
+<h1> Chi-square test </h1>
+```{r}
+data <-read.csv("RQ3_data.csv", header = TRUE)
+```
+
+
+```{r}
+summary(data)
+```
+
+<h3>Co-occurence of databasee smells with bugs</h3>
+<h3>H0: Occurence of Database smells and file version being mentioned in bug induce commits are independent/h3>
+<h3>H1: Occurence of Database smells and file version being mentioned in bug induce commits are not independent</h3>
+
+
+```{r}
+#V∈[0.1,0.3]: weak association
+#V∈[0.4,0.5]: medium association
+#V>0.5: strong association
+```
+
+```{r}
+install.packages('lsr')
+```
+
+<h3>Database smells vs bug induce</h3>
+
+```{r}
+library('lsr')
+print("Implicit columns vs bug induce")
+contengency=table(data$IMPLICIT_COLUMNS, data$in_bug_induce)
+contengency 
+print("Chi-squared test result\n")
+chisq.test(contengency)
+print("Cramer test result")
+cramersV(data$IMPLICIT_COLUMNS, data$in_bug_induce ) 
+print("Fear of the unknown vs bug induce")
+contengency=table(data$FEAR_OF_THE_UNKNOWN, data$in_bug_induce)
+contengency 
+print("Chi-squared test result\n")
+chisq.test(contengency)
+print("Cramer test result")
+cramersV(data$FEAR_OF_THE_UNKNOWN, data$in_bug_induce )
+```
+<h3>Traditional smells vs bug induce</h3>
+```{r}
+print("ComplexClass vs bug induce")
+contengency=table(data$ComplexClass, data$in_bug_induce)
+contengency 
+print("Chi-squared test result\n")
+chisq.test(contengency)
+print("Cramer test result")
+cramersV(data$ComplexClass, data$in_bug_induce ) 
+
+print("Long parameter list vs bug induce")
+contengency=table(data$LongParameterList, data$in_bug_induce)
+contengency 
+print("Chi-squared test result\n")
+chisq.test(contengency)
+print("Cramer test result")
+cramersV(data$LongParameterList, data$in_bug_induce) 
+
+print("Long method  vs bug induce")
+contengency=table(data$LongMethod, data$in_bug_induce)
+contengency 
+print("Chi-squared test result\n")
+chisq.test(contengency)
+print("Cramer test result")
+cramersV(data$LongMethod, data$in_bug_induce) 
+
+print("Anti singlton  vs bug induce")
+contengency=table(data$AntiSingleton, data$in_bug_induce)
+contengency 
+print("Chi-squared test result\n")
+chisq.test(contengency)
+print("Cramer test result")
+cramersV(data$AntiSingleton, data$in_bug_induce) 
+
+print("SpaghettiCode vs bug induce")
+contengency=table(data$SpaghettiCode, data$in_bug_induce)
+contengency 
+print("Chi-squared test result\n")
+chisq.test(contengency)
+print("Cramer test result")
+cramersV(data$SpaghettiCode, data$in_bug_induce) 
+```

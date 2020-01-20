@@ -1,0 +1,106 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  pdf_document: default
+---
+
+
+
+```{r}
+data <-read.csv("RQ2_data_normalized.csv", header = TRUE)
+```
+
+<h1>Chi-squared test of independence of occurence between database smells and traditional smells </h1> </br>
+<strong> H0: "database smell" and "traditional smell" are occuring independnetly</strong> </br>
+<strong> H1: "database smell" and "traditional smell" are not occuring independnetly </strong> </br>
+<strong> Alpha value: 0.05</strong> </br>
+
+<h2>IMPLICIT_COLUMNS vs LongParameterList </h2>
+```{r}
+summary(data)
+install.packages('lsr')
+
+```
+
+
+```{r}
+library('lsr')
+print("Implicit columns vs Long method")
+contengency=table(data$IMPLICIT_COLUMNS, data$LongMethod)
+#contengency
+print("Chi-square test")
+chisq.test(contengency)
+print("CramersV Effect size")
+cramersV(data$IMPLICIT_COLUMNS, data$LongMethod)
+
+print("Implicit columns vs Complex class")
+contengency=table(data$IMPLICIT_COLUMNS, data$ComplexClass)
+#contengency
+print("Chi-square test")
+chisq.test(contengency)
+print("CramersV Effect size")
+cramersV(data$IMPLICIT_COLUMNS, data$ComplexClass)
+
+print("Implicit columns vs Long parameter list")
+contengency=table(data$IMPLICIT_COLUMNS, data$LongParameterList)
+#contengency
+print("Chi-square test")
+chisq.test(contengency)
+print("CramersV Effect size")
+cramersV(data$IMPLICIT_COLUMNS, data$LongParameterList)
+
+print("Implicit columns vs Antisinglton")
+contengency=table(data$IMPLICIT_COLUMNS, data$AntiSingleton)
+#contengency
+print("Chi-square test")
+chisq.test(contengency)
+print("CramersV Effect size")
+cramersV(data$IMPLICIT_COLUMNS, data$AntiSingleton)
+
+print("Fear of unknown vs Antisinglton")
+contengency=table(data$FEAR_OF_THE_UNKNOWN, data$AntiSingleton)
+#contengency
+print("Chi-square test")
+chisq.test(contengency)
+print("CramersV Effect size")
+cramersV(data$FEAR_OF_THE_UNKNOWN, data$AntiSingleton)
+
+print("Fear of unknown vs Complex class")
+contengency=table(data$FEAR_OF_THE_UNKNOWN, data$ComplexClass)
+#contengency
+print("Chi-square test")
+chisq.test(contengency)
+print("CramersV Effect size")
+cramersV(data$FEAR_OF_THE_UNKNOWN, data$ComplexClass)
+
+print("Fear of unknown vs Longmethod")
+contengency=table(data$FEAR_OF_THE_UNKNOWN, data$LongMethod)
+#contengency
+print("Chi-square test")
+chisq.test(contengency)
+print("CramersV Effect size")
+cramersV(data$FEAR_OF_THE_UNKNOWN, data$LongMethod)
+
+print("Fear of unknown vs Long parameter list")
+contengency=table(data$FEAR_OF_THE_UNKNOWN, data$LongParameterList)
+#contengency
+print("Chi-square test")
+chisq.test(contengency)
+print("CramersV Effect size")
+cramersV(data$FEAR_OF_THE_UNKNOWN, data$LongParameterList)
+```
+
+
+
+
+
+
+
+
+
+
+
+
